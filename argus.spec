@@ -2,20 +2,20 @@
 
 Name:           argus
 Version:        2.0.6.fixes.1
-Release:        %mkrel 1
+Release:        %mkrel 2
 Epoch:          0
 Summary:        Network transaction audit tool
 License:        GPL
 Group:          System/Servers
 URL:            http://qosient.com/argus/
-Source0:        ftp://ftp.qosient.com/dev/argus-2.0/%{name}-%{version}.tar.bz2
+Source0:        http://qosient.com/argus/src/argus-%{version}.tar.bz2
 Source1:        argus.init
 Patch0:         argus-2.0.6.fixes.1-makefile.patch
 Patch1:         argus-2.0.6.fixes.1-build.patch
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 BuildRequires:  bison
-BuildRequires:  flex-reentrant
+BuildRequires:  flex
 BuildRequires:  libncurses-devel
 BuildRequires:  libpcap-devel
 BuildRequires:  libsasl-devel
@@ -35,29 +35,29 @@ management.
 
 %build
 export CPPFLAGS="-I%{_includedir}/sasl"
-%configure2_5x --with-sasl
+%{configure2_5x} --with-sasl
 %{make}
 
 %install
 %{__rm} -rf %{buildroot}
 %{makeinstall_std}
-%{__rm} -rf %{buildroot}%{_libdir}
+%{__rm} -r %{buildroot}%{_libdir}
 
 %{__mkdir_p} %{buildroot}%{_bindir}
-%{__cp} -a bin/%{name}bug %{buildroot}%{_bindir}/%{name}bug
+%{__cp} -a bin/argusbug %{buildroot}%{_bindir}/argusbug
 
-%{__mkdir_p} %{buildroot}/%{_localstatedir}/lib/%{name}/archive
+%{__mkdir_p} %{buildroot}%{_localstatedir}/lib/%{name}/archive
 
-%{__mkdir_p} %{buildroot}/%{_sysconfdir}
-%{__cp} -a support/Config/%{name}.conf %{buildroot}/%{_sysconfdir}/%{name}.conf
+%{__mkdir_p} %{buildroot}%{_sysconfdir}
+%{__cp} -a support/Config/argus.conf %{buildroot}%{_sysconfdir}/argus.conf
 
 %{__perl} -pi -e 's|/var/log/argus|%{_localstatedir}/lib/%{name}|;' \
               -e 's|^#ARGUS_BIND_IP|ARGUS_BIND_IP|;' \
               -e 's|^#ARGUS_ACCESS_PORT|ARGUS_ACCESS_PORT|;' \
-  %{buildroot}/%{_sysconfdir}/%{name}.conf
+  %{buildroot}%{_sysconfdir}/argus.conf
 
-%{__mkdir_p} %{buildroot}/%{_initrddir}
-%{__cp} -a %{SOURCE1} %{buildroot}/%{_initrddir}/%{name}
+%{__mkdir_p} %{buildroot}%{_initrddir}
+%{__cp} -a %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -71,14 +71,14 @@ export CPPFLAGS="-I%{_includedir}/sasl"
 %files
 %defattr(0644,root,root,0755)
 %doc COPYING CREDITS INSTALL README VERSION doc support
-%attr(0755,root,root) %{_bindir}/%{name}bug
-%attr(0755,root,root) %{_sbindir}/%{name}
-%{_mandir}/man5/%{name}.5*
-%{_mandir}/man5/%{name}.conf.5*
-%{_mandir}/man8/%{name}.8*
+%attr(0755,root,root) %{_bindir}/argusbug
+%attr(0755,root,root) %{_sbindir}/argus
+%{_mandir}/man5/argus.5*
+%{_mandir}/man5/argus.conf.5*
+%{_mandir}/man8/argus.8*
 %dir %{_localstatedir}/lib/%{name}
 %dir %{_localstatedir}/lib/%{name}/archive
 %attr(0755,root,root) %{_initrddir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}.conf
+%config(noreplace) %{_sysconfdir}/argus.conf
 
 
