@@ -2,14 +2,16 @@
 
 Name:           argus
 Version:        2.0.6.fixes.1
-Release:        %mkrel 2
+Release:        %mkrel 3
 Epoch:          0
 Summary:        Network transaction audit tool
 License:        GPL
 Group:          System/Servers
 URL:            http://qosient.com/argus/
-Source0:        http://qosient.com/argus/src/argus-%{version}.tar.bz2
-Source1:        argus.init
+Source0:        http://qosient.com/argus/src/argus-2.0.6.tar.gz
+Source1:        http://qosient.com/argus/src/argus-2.0.6.tar.gz.asc
+Source2:        http://qosient.com/argus/src/argus-2.0.6.tar.gz.md5
+Source3:        argus.init
 Patch0:         argus-2.0.6.fixes.1-makefile.patch
 Patch1:         argus-2.0.6.fixes.1-build.patch
 Requires(post): rpm-helper
@@ -29,7 +31,7 @@ wide range of tasks such as network operations, security and performance
 management.
 
 %prep
-%setup -q
+%setup -q -n argus-2.0.6
 %patch0 -p1
 %patch1 -p1
 
@@ -57,7 +59,7 @@ export CPPFLAGS="-I%{_includedir}/sasl"
   %{buildroot}%{_sysconfdir}/argus.conf
 
 %{__mkdir_p} %{buildroot}%{_initrddir}
-%{__cp} -a %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
+%{__cp} -a %{SOURCE3} %{buildroot}%{_initrddir}/%{name}
 
 %clean
 %{__rm} -rf %{buildroot}
