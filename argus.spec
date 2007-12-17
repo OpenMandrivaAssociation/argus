@@ -22,7 +22,6 @@ BuildRequires:  libncurses-devel
 BuildRequires:  libpcap-devel
 BuildRequires:  libsasl-devel
 BuildRequires:  libwrap-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Argus (Audit Record Generation and Utilization System) is an IP network
