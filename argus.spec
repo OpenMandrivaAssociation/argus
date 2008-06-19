@@ -2,7 +2,7 @@
 
 Name:           argus
 Version:        2.0.6.fixes.1
-Release:        %mkrel 3
+Release:        %mkrel 4
 Epoch:          0
 Summary:        Network transaction audit tool
 License:        GPL
