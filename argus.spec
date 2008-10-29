@@ -1,27 +1,26 @@
 %define _localstatedir  %{_var}
 
-Name:           argus
-Version:        2.0.6.fixes.1
-Release:        %mkrel 5
-Epoch:          0
 Summary:        Network transaction audit tool
+Name:           argus
+Version:        3.0.0
+Release:        %mkrel 1
+Epoch:          0
 License:        GPL
 Group:          System/Servers
 URL:            http://qosient.com/argus/
-Source0:        http://qosient.com/argus/src/argus-2.0.6.tar.gz
-Source1:        http://qosient.com/argus/src/argus-2.0.6.tar.gz.asc
-Source2:        http://qosient.com/argus/src/argus-2.0.6.tar.gz.md5
+Source0:        http://qosient.com/argus/src/argus-%{version}.tar.gz
+Source1:        http://qosient.com/argus/src/argus-%{version}.tar.gz.asc
+Source2:        http://qosient.com/argus/src/argus-%{version}.tar.gz.md5
 Source3:        argus.init
-Patch0:         argus-2.0.6.fixes.1-makefile.patch
-Patch1:         argus-2.0.6.fixes.1-build.patch
+Patch0:         argus-3.0.0-linkage_fix.diff
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
-BuildRequires:  bison
-BuildRequires:  flex
-BuildRequires:  libncurses-devel
-BuildRequires:  libpcap-devel
-BuildRequires:  libsasl-devel
-BuildRequires:  libwrap-devel
+BuildRequires:	bison
+BuildRequires:	flex
+BuildRequires:	ncurses-devel
+BuildRequires:	pcap-devel
+BuildRequires:	libsasl-devel
+BuildRequires:	libwrap-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -31,19 +30,22 @@ wide range of tasks such as network operations, security and performance
 management.
 
 %prep
-%setup -q -n argus-2.0.6
-%patch0 -p1
-%patch1 -p1
+
+%setup -q -n argus-%{version}
+%patch0 -p0
 
 %build
 export CPPFLAGS="-I%{_includedir}/sasl"
-%{configure2_5x} --with-sasl
-%{make}
+
+%configure2_5x \
+    --with-sasl
+
+%make
 
 %install
 %{__rm} -rf %{buildroot}
-%{makeinstall_std}
-%{__rm} -r %{buildroot}%{_libdir}
+
+%makeinstall_std
 
 %{__mkdir_p} %{buildroot}%{_bindir}
 %{__cp} -a bin/argusbug %{buildroot}%{_bindir}/argusbug
@@ -75,12 +77,9 @@ export CPPFLAGS="-I%{_includedir}/sasl"
 %doc COPYING CREDITS INSTALL README VERSION doc support
 %attr(0755,root,root) %{_bindir}/argusbug
 %attr(0755,root,root) %{_sbindir}/argus
-%{_mandir}/man5/argus.5*
 %{_mandir}/man5/argus.conf.5*
 %{_mandir}/man8/argus.8*
 %dir %{_localstatedir}/lib/%{name}
 %dir %{_localstatedir}/lib/%{name}/archive
 %attr(0755,root,root) %{_initrddir}/%{name}
 %config(noreplace) %{_sysconfdir}/argus.conf
-
-
