@@ -2,7 +2,7 @@
 
 Name:           argus
 Version:        2.0.6.fixes.1
-Release:        %mkrel 4
+Release:        %mkrel 5
 Epoch:          0
 Summary:        Network transaction audit tool
 License:        GPL
@@ -22,7 +22,7 @@ BuildRequires:  libncurses-devel
 BuildRequires:  libpcap-devel
 BuildRequires:  libsasl-devel
 BuildRequires:  libwrap-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Argus (Audit Record Generation and Utilization System) is an IP network
