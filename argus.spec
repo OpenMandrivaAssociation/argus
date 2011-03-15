@@ -20,6 +20,7 @@ BuildRequires:	ncurses-devel
 BuildRequires:	pcap-devel
 BuildRequires:	libsasl-devel
 BuildRequires:	libwrap-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
