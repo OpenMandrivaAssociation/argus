@@ -2,17 +2,16 @@
 
 Summary:        Network transaction audit tool
 Name:           argus
-Version:        3.0.2
-Release:        %mkrel 2
+Version:        3.0.4
+Release:        %mkrel 1
 Epoch:          0
 License:        GPL
 Group:          System/Servers
 URL:            http://qosient.com/argus/
-Source0:        http://qosient.com/argus/src/argus-%{version}.tar.gz
-Source1:        http://qosient.com/argus/src/argus-%{version}.tar.gz.asc
-Source2:        http://qosient.com/argus/src/argus-%{version}.tar.gz.md5
+Source0:        http://qosient.com/argus/dev/argus-%{version}.tar.gz
+Source1:        http://qosient.com/argus/dev/argus-%{version}.tar.gz.asc
+Source2:        http://qosient.com/argus/dev/argus-%{version}.tar.gz.md5
 Source3:        argus.init
-Patch0:         argus-3.0.0-linkage_fix.diff
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 BuildRequires:	bison
@@ -32,7 +31,6 @@ management.
 %prep
 
 %setup -q -n argus-%{version}
-%patch0 -p0
 
 %build
 export CPPFLAGS="-I%{_includedir}/sasl"
@@ -75,7 +73,7 @@ export CPPFLAGS="-I%{_includedir}/sasl"
 %files
 %defattr(0644,root,root,0755)
 %doc COPYING CREDITS INSTALL README VERSION doc support
-%attr(0755,root,root) %{_bindir}/argusbug
+%attr(0755,root,root) %{_bindir}/*
 %attr(0755,root,root) %{_sbindir}/argus
 %{_mandir}/man5/argus.conf.5*
 %{_mandir}/man8/argus.8*
