@@ -2,7 +2,7 @@
 
 Summary:        Network transaction audit tool
 Name:           argus
-Version:        3.0.4
+Version:        3.0.6
 Release:        %mkrel 1
 Epoch:          0
 License:        GPL
@@ -21,7 +21,6 @@ BuildRequires:	pcap-devel
 BuildRequires:	libsasl-devel
 BuildRequires:	libwrap-devel
 BuildRequires:	zlib-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Argus (Audit Record Generation and Utilization System) is an IP network
@@ -42,7 +41,6 @@ export CPPFLAGS="-I%{_includedir}/sasl"
 %make
 
 %install
-%{__rm} -rf %{buildroot}
 
 %makeinstall_std
 
@@ -61,9 +59,6 @@ export CPPFLAGS="-I%{_includedir}/sasl"
 
 %{__mkdir_p} %{buildroot}%{_initrddir}
 %{__cp} -a %{SOURCE3} %{buildroot}%{_initrddir}/%{name}
-
-%clean
-%{__rm} -rf %{buildroot}
 
 %post
 %_post_service %{name}
