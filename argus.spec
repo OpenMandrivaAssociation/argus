@@ -2,7 +2,7 @@
 
 Summary:        Network transaction audit tool
 Name:           argus
-Version:        3.0.6.1
+Version:        3.0.7.1
 Release:        1
 Epoch:          0
 License:        GPL
@@ -11,7 +11,7 @@ URL:            http://qosient.com/argus/
 Source0:        http://qosient.com/argus/dev/argus-%{version}.tar.gz
 Source1:        http://qosient.com/argus/dev/argus-%{version}.tar.gz.asc
 Source2:        http://qosient.com/argus/dev/argus-%{version}.tar.gz.md5
-Source3:        argus.init
+Source3:        argus.service
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 BuildRequires:	bison
@@ -36,7 +36,7 @@ management.
 export CPPFLAGS="-I%{_includedir}/sasl"
 
 %configure2_5x \
-    --with-sasl
+    --with-sasl=yes
 
 %make
 
@@ -57,14 +57,14 @@ export CPPFLAGS="-I%{_includedir}/sasl"
               -e 's|^#ARGUS_ACCESS_PORT|ARGUS_ACCESS_PORT|;' \
   %{buildroot}%{_sysconfdir}/argus.conf
 
-%{__mkdir_p} %{buildroot}%{_initrddir}
-%{__cp} -a %{SOURCE3} %{buildroot}%{_initrddir}/%{name}
+%{__mkdir_p} %{buildroot}%{_unitdir}
+%{__cp} -a %{SOURCE3} %{buildroot}%{_unitdir}/
 
 %post
-%_post_service %{name}
+%_post_service %{name}.service
 
 %preun
-%_preun_service %{name}
+%_preun_service %{name}.service
 
 %files
 %defattr(0644,root,root,0755)
@@ -75,5 +75,5 @@ export CPPFLAGS="-I%{_includedir}/sasl"
 %{_mandir}/man8/argus.8*
 %dir %{_localstatedir}/lib/%{name}
 %dir %{_localstatedir}/lib/%{name}/archive
-%attr(0755,root,root) %{_initrddir}/%{name}
+%attr(0755,root,root) %{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/argus.conf
