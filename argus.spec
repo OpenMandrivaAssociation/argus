@@ -3,7 +3,7 @@
 Summary:        Network transaction audit tool
 Name:           argus
 Version:        3.0.7.1
-Release:        1
+Release:        2
 Epoch:          0
 License:        GPL
 Group:          System/Servers
