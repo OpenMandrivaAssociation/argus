@@ -7,7 +7,7 @@ Release:        2
 Epoch:          0
 License:        GPL
 Group:          System/Servers
-URL:            http://qosient.com/argus/
+URL:            https://qosient.com/argus/
 Source0:        http://qosient.com/argus/dev/argus-%{version}.tar.gz
 Source1:        http://qosient.com/argus/dev/argus-%{version}.tar.gz.asc
 Source2:        http://qosient.com/argus/dev/argus-%{version}.tar.gz.md5
