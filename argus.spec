@@ -14,6 +14,11 @@ Source2:        http://qosient.com/argus/dev/argus-%{version}.tar.gz.md5
 Source3:        argus.service
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	ncurses-devel
